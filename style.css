@@ -28,17 +28,10 @@ body {
   align-items: center;
   background-color: white;
 }
-/* button {
-  color: white;
-  background-color: lightblue;
-  cursor: pointer;
-  /* justify-self: start; */
-/* justify-items: start; */
-/* width: fit-content; */
-/* }
-button:hover {
-  color: white;
-} */
+
+dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
 
 button {
   background-color: #4f46e5;
@@ -71,6 +64,21 @@ button:active {
 form {
   display: grid;
   gap: 1rem;
+}
+
+.cont {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+dialog {
+  border: none;
+  border-radius: 5px;
 }
 
 input:user-invalid {

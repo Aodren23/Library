@@ -1,6 +1,9 @@
 const libraryContainer = document.querySelector(".library");
 const read = document.querySelector("#status");
+const form = document.querySelector("#form");
 const book_display = document.querySelector(".book_display");
+const dialog = document.querySelector("#my-form");
+const closeBtn = document.querySelector("#close");
 const myLibrary = [];
 
 function Book(id, title, author, pages, status) {
@@ -13,10 +16,6 @@ function Book(id, title, author, pages, status) {
   this.author = author;
   this.pages = pages;
   this.status = status;
-
-  // this.info = function info() {
-  //   console.log(this.title, this.author, this.number_of_pages);
-  // };
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -31,15 +30,6 @@ addBookToLibrary("Star Wars", "King", 542, "read");
 addBookToLibrary("The AIT", "Dr Loos", 26, "read");
 
 console.log(myLibrary);
-
-// function display() {
-//   //     for(x=0; x<myLibrary.lenght, x++){
-
-//   //   }
-//   for (const book of myLibrary) {
-//     console.log(book);
-//   }
-// }
 
 function createCard(book) {
   const card = document.createElement("div");
@@ -59,51 +49,41 @@ function createCard(book) {
   return card;
 }
 
-// form.addEventListener("submit", (event) => {
-//   event.preventDefault();
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-//   const title = document.querySelector("#title").value;
+  const title = document.querySelector("#title").value;
 
-//   const author = document.querySelector("#author").value;
+  const author = document.querySelector("#author").value;
 
-//   const pages = document.querySelector("#pages").value;
+  const pages = document.querySelector("#pages").value;
 
-//   const status = document.querySelector("#status").checked;
+  function statusCheck() {
+    const status = document.querySelector("#status").checked;
+    return status ? "read" : "unread";
+  }
 
-//   addBookToLibrary(title, author, pages, status);
+  const status = statusCheck();
 
-//   displayBooks();
+  addBookToLibrary(title, author, pages, status);
 
-//   form.reset();
+  displayBooks();
 
-//   dialog.close();
-// });
+  form.reset();
+
+  dialog.close();
+});
 
 function displayBooks() {
   book_display.innerHTML = "";
 
   for (const book of myLibrary) {
-    //     const card = document.createElement("div");
-    //     card.classList.add("book-card");
-    //     card.innerHTML = `
-    // <h2>${book.title}</h2>
-    // <p>${book.author}</p>
-    // <p>${book.pages} pages</p>
-    // <p>${book.status}</p>
-    // `;
     book_display.appendChild(createCard(book));
   }
 }
+
 displayBooks();
 
-function changeStatus() {}
-
-read.addEventListener("click", () => {
-  for (const book of myLibrary) {
-    if (status.textContent == read) {
-      status.textContent == unread;
-    } else {
-      status.textContent == read;
-    }
-  }
+closeBtn.addEventListener("click", () => {
+  form.reset();
 });

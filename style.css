@@ -1,13 +1,27 @@
+.library {
+  /* background: linear-gradient(to right, #16222a, #3a6073); */
+  /* background: linear-gradient(135deg, #ff6e7f, #bfe9ff); */
+  /* background: linear-gradient(135deg, #16222a, #3a6073); */
+  height: 100dvh;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .bookCard {
   width: 250px;
   padding: 1rem;
-  /* border: 2px solid #ddd; */
   border-radius: 5px;
   border: 2px solid white;
-
   background-color: white;
   text-align: center;
   transition: 0.3s;
+  display: grid;
+  gap: 0.5rem;
 }
 .bookCard:hover {
   transform: translateY(-2px);
@@ -27,6 +41,17 @@ body {
   padding-left: 4rem;
   align-items: center;
   background-color: white;
+}
+/* /////////////////////////////////// */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  /* -webkit-backdrop-filter: blur(10px); */
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* border-radius: 15px; */
+
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); */
 }
 
 dialog::backdrop {
@@ -56,9 +81,14 @@ button:active {
 }
 .book_display {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-top: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  /* background-color: red; */
 }
 
 form {

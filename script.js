@@ -18,11 +18,13 @@ function Book(id, title, author, pages, status) {
   this.status = status;
 }
 
+Book.prototype.changeStatus = function () {
+  this.status = this.status === "read" ? "unread" : "read";
+  displayBooks();
+};
+
 function addBookToLibrary(title, author, pages, read) {
-  // take params, create a book then store it in the array
-  /* Assuming that self.crypto.randomUUID() is available */
   let id = self.crypto.randomUUID();
-  // console.log(uuid); // for example "36b8f84d-df4e-4d49-b662-bcde71a8764f"
   const book = new Book(id, title, author, pages, read);
   myLibrary.push(book);
 }
@@ -34,14 +36,25 @@ addBookToLibrary("The AIT", "Dr Loos", 26, "read");
 function createCard(book) {
   const card = document.createElement("div");
   card.classList.add("bookCard");
-  const title = document.createElement("h2");
+
+  const cardHeader = document.createElement("div");
+  cardHeader.className = "cardHeader";
+  const title = document.createElement("p");
+  title.className = "title";
   title.textContent = book.title;
+
+  const cardBody = document.createElement("div");
+  cardBody.className = "cardBody";
   const author = document.createElement("p");
-  author.textContent = `Author: ${book.author}`;
+  author.textContent = book.author;
   const pages = document.createElement("p");
-  pages.textContent = `Pages: ${book.pages}`;
+  pages.textContent = `${book.pages} pages`;
   const status = document.createElement("p");
-  status.textContent = `Status: ${book.status}`;
+  status.className = book.status;
+  status.textContent = book.status;
+  // card footer
+  const cardFooter = document.createElement("div");
+  cardFooter.className = "cardFooter";
   // rmv
   const remove = document.createElement("button");
   remove.classList.add("rmv");
@@ -58,11 +71,14 @@ function createCard(book) {
   statusChange.textContent = "Change Status";
   // statusChange event listener
   statusChange.addEventListener("click", () => {
-    book.status = book.status === "read" ? "unread" : "read";
+    book.changeStatus();
+    console.log(book.status);
     displayBooks();
   });
-
-  card.append(title, author, pages, status, remove, statusChange);
+  cardHeader.append(title);
+  cardBody.append(author, pages, status);
+  cardFooter.append(remove, statusChange);
+  card.append(cardHeader, cardBody, cardFooter);
   return card;
 }
 
@@ -79,22 +95,17 @@ form.addEventListener("submit", (event) => {
   const status = statusCheck();
 
   addBookToLibrary(title, author, pages, status);
-
   displayBooks();
-
   form.reset();
-
   dialog.close();
 });
 
 function displayBooks() {
   book_display.innerHTML = "";
-
   for (const book of myLibrary) {
     book_display.appendChild(createCard(book));
   }
 }
-
 displayBooks();
 
 closeBtn.addEventListener("click", () => {
